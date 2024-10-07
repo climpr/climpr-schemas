@@ -1,0 +1,69 @@
+{
+  "$id": "https://raw.githubusercontent.com/climpr/climpr-schemas/main/schemas/v1.0.0/workload-management/deploymentconfig.json#",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Deployment configuration for workload deployments",
+  "description": "The schema for the deployment configuration file used for Climpr workloads",
+  "type": "object",
+  "required": [],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "format": "uri-reference"
+    },
+    "disabled": {
+      "type": "boolean",
+      "description": "Setting this to true disables the deployment regardless of the triggering event."
+    },
+    "triggers": {
+      "type": "object",
+      "propertyNames": {
+        "enum": [
+          "workflow_dispatch",
+          "schedule",
+          "pull_request_target",
+          "push"
+        ]
+      },
+      "additionalProperties": false,
+      "patternProperties": {
+        ".*": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "disabled": {
+              "type": "boolean",
+              "description": "Setting this to true disables the deployment when triggered from this specific triggering event."
+            }
+          }
+        }
+      }
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the deployment. This is the name in the 'Deployments' panel in the Azure portal."
+    },
+    "location": {
+      "type": "string",
+      "description": "The location for the deployment. This is optional has an organization default if not specified. This property is valid for Tenant, Management Group and Subscription scoped deployments.",
+      "minLength": 1
+    },
+    "resourceGroupName": {
+      "type": "string",
+      "description": "The target Resource Group Name for the deployment. This property is only valid in Resource Group scoped deployments.",
+      "minLength": 1,
+      "maxLength": 90
+    },
+    "managementGroupId": {
+      "type": "string",
+      "description": "The target Management Group Name for the deployment. This property is only valid in Management Group scoped deployments.",
+      "minLength": 1,
+      "maxLength": 90
+    },
+    "azureCliVersion": {
+      "type": "string",
+      "format": "regex",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+    }
+  }
+}

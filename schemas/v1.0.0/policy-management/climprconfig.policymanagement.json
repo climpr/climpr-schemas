@@ -1,0 +1,130 @@
+{
+  "$id": "climprconfig.policymanagement.json#",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Climpr Policy Management Configuration schema",
+  "description": "All properties related to the policy management feature configuration.",
+  "type": "object",
+  "required": [
+    "enabled",
+    "defaultLocation",
+    "rootManagementGroupId",
+    "maxExemptionExpirationDateInDays",
+    "ignoredPolicyCreatorIdentities",
+    "remediationConfig"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "enabled": {
+      "type": "boolean",
+      "description": "!!! NOT IN USE YET - Enables or disables the policyManagement features.",
+      "default": false
+    },
+    "defaultLocation": {
+      "type": "string",
+      "description": "The default location for policy assigment deployments. This is only used when deploying assignments for DeployIfNotExist policies and have no permanent effect on any resources.",
+      "default": "westeurope"
+    },
+    "rootManagementGroupId": {
+      "type": "string",
+      "description": "The top level Management Group Id for the Climpr deployment. This is used as the default location to deploy and fetch policy definitions."
+    },
+    "maxExemptionExpirationDateInDays": {
+      "type": "integer",
+      "description": "The maximum number of days until expiration for policy exemptions.",
+      "maximum": 365,
+      "default": 365
+    },
+    "ignoredPolicyCreatorIdentities": {
+      "type": "array",
+      "description": "Any policies deployed by principals in this list will not be targeted for cleanup by the policy cleanup feature. This should contain the principal for the Climpr Platform Management repository as well as Azure default principals.",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "anyOf": [
+          {
+            "required": [
+              "description",
+              "principalId"
+            ]
+          },
+          {
+            "required": [
+              "description",
+              "displayName"
+            ]
+          }
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "principalId": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "remediationConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "enabled",
+        "defaultIncludeFilterPatterns"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "!!! NOT IN USE YET - Enables or disables the workflows for policy remediation. Requires policyManagement.enabled to be 'true' as well.",
+          "default": true
+        },
+        "defaultIncludeFilterPatterns": {
+          "type": "array",
+          "description": "The regex patterns used to filter policies to include in remediation. The pattern applies to the relative path name of the policy assignment file in the repository. If a file matches *any* of the filters, it is processed. This is overridden by the 'pattern' parameter in the workflow when using workflow_dispatch.",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            ".*"
+          ]
+        },
+        "additionalAssignments": {
+          "type": "array",
+          "description": "A list of policy assignments not defined in the policyManagement solution that should be included in the remediation processing. Typically used for the Tagging Convention and Diagnostic Settings policy initiatives.",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "scope",
+              "description"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "The name of the policy assignment object. Should not be the full resource Id, only the last part.",
+                "pattern": "^[-.a-zA-Z0-9]+$"
+              },
+              "scope": {
+                "type": "string",
+                "description": "The scope for the policy assignment. Supports ManagementGroup, Subscription and ResourceGroup scopes",
+                "pattern": "^/subscription/|^/providers/Microsoft.Management/managementGroups/"
+              },
+              "description": {
+                "type": "string",
+                "description": "A description of the policy assignment."
+              }
+            }
+          },
+          "default": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "$id": "https://raw.githubusercontent.com/climpr/climpr-schemas/main/schemas/v1.0.0/bicep-module-publish/publishconfig.json#",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Configuration options for Bicep module publishing action",
+  "description": "The schema for the publishconfig file used for the Bicep Module publish action in Climpr",
+  "type": "object",
+  "required": [
+    "bicepRegistryFqdn"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "format": "uri-reference"
+    },
+    "bicepRegistryFqdn": {
+      "type": "string",
+      "description": "The fully qualified name for the Azure Container Registry for which to publish Bicep modules.",
+      "format": "regex",
+      "pattern": "[\\w]+?\\.azurecr\\.io$"
+    },
+    "azureCliVersion": {
+      "type": "string",
+      "description": "The version of Azure Cli used to build and publish the Bicep modules.",
+      "format": "regex",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "$id": "https://raw.githubusercontent.com/climpr/climpr-schemas/main/schemas/v1.0.0/climprconfig.json#",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Climpr configuration file",
+  "description": "The configuration file for configuring Climpr",
+  "type": "object",
+  "required": [],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "format": "uri-reference"
+    },
+    "lzManagement": {
+      "$ref": "./lz-management/climprconfig.lzmanagement.json#"
+    },
+    "policyManagement": {
+      "$ref": "./policy-management/climprconfig.policymanagement.json#"
+    },
+    "workloadManagement": {
+      "$ref": "./workload-management/climprconfig.workloadmanagement.json#"
+    },
+    "bicepDeployment": {
+      "$ref": "./bicep-deployment/climprconfig.bicepdeployment.json#"
+    }
+  }
+}

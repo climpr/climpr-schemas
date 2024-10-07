@@ -1,0 +1,84 @@
+{
+  "$id": "climprconfig.lzmanagement.json#",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Climpr Landing Zone Management Configuration schema",
+  "description": "All properties related to the landing zone management feature configuration.",
+  "type": "object",
+  "required": [
+    "enabled",
+    "defaultLocation",
+    "rootManagementGroupId",
+    "decommissionedManagementGroupId",
+    "billingAccountDisplayName",
+    "gitWorkloadRepository"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "enabled": {
+      "type": "boolean",
+      "description": "!!! NOT IN USE YET - Enables or disables the lzManagement features.",
+      "default": false
+    },
+    "defaultLocation": {
+      "type": "string",
+      "description": "The default location for for all deployment functions.",
+      "default": "westeurope"
+    },
+    "rootManagementGroupId": {
+      "type": "string",
+      "description": "The top level Management Group Id for the Climpr deployment."
+    },
+    "decommissionedManagementGroupId": {
+      "type": "string",
+      "description": "The Management Group Id for decommissioned landing zones."
+    },
+    "billingAccountDisplayName": {
+      "type": "string",
+      "description": "The display name of the billing account associated to this solution."
+    },
+    "gitWorkloadRepository": {
+      "type": "object",
+      "description": "All properties associated to the repository creation and configuration for workload repositories.",
+      "required": [
+        "template",
+        "createDefaultTeam",
+        "createDefaultTeamEntraIdSyncedGroup",
+        "access",
+        "branchPolicyPatterns",
+        "branchProtection",
+        "codeOwners",
+        "runProtection"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "template": {
+          "type": "string",
+          "description": "The repository name for the template repository for the workload management solution."
+        },
+        "createDefaultTeam": {
+          "type": "boolean",
+          "description": "When this is enabled, a default team is created for each workload management repository."
+        },
+        "createDefaultTeamEntraIdSyncedGroup": {
+          "type": "boolean",
+          "description": "When this is enabled, a the default team is synced to Entra Id as a synced group."
+        },
+        "access": {
+          "$ref": "github-api.json#/$defs/access"
+        },
+        "branchPolicyPatterns": {
+          "$ref": "github-api.json#/$defs/branchPolicyPatterns"
+        },
+        "branchProtection": {
+          "$ref": "github-api.json#/$defs/branchProtection"
+        },
+        "codeOwners": {
+          "$ref": "github-api.json#/$defs/codeOwners"
+        },
+        "runProtection": {
+          "$ref": "github-api.json#/$defs/runProtection"
+        }
+      }
+    }
+  }
+}

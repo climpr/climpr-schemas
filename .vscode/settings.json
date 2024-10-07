@@ -1,0 +1,84 @@
+{
+  "editor.formatOnSaveMode": "modifications",
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  "powershell.codeFormatting.addWhitespaceAroundPipe": true,
+  "powershell.codeFormatting.alignPropertyValuePairs": true,
+  "powershell.codeFormatting.autoCorrectAliases": false,
+  "powershell.codeFormatting.ignoreOneLineBlock": false,
+  "powershell.codeFormatting.newLineAfterCloseBrace": true,
+  "powershell.codeFormatting.newLineAfterOpenBrace": true,
+  "powershell.codeFormatting.openBraceOnSameLine": true,
+  "powershell.codeFormatting.trimWhitespaceAroundPipe": true,
+  "powershell.codeFormatting.useCorrectCasing": true,
+  "powershell.codeFormatting.whitespaceAfterSeparator": true,
+  "powershell.codeFormatting.whitespaceAroundOperator": true,
+  "powershell.codeFormatting.whitespaceBeforeOpenBrace": true,
+  "powershell.codeFormatting.whitespaceBeforeOpenParen": true,
+  "powershell.codeFormatting.whitespaceBetweenParameters": false,
+  "powershell.codeFormatting.whitespaceInsideBrace": true,
+  "files.associations": {
+    "climprconfig.json": "jsonc",
+    "**/deploymentconfig.json": "jsonc",
+    "**/publishconfig.json": "jsonc",
+    "**/policy-management/**/*.json": "jsonc",
+    "**/lz-management/**/metadata.json": "jsonc",
+    "**/lz-management/**/*.existingVnetIds.json": "jsonc",
+  },
+  "json.schemas": [
+    {
+      "fileMatch": [
+        "climprconfig.json"
+      ],
+      "url": "https://raw.githubusercontent.com/climpr/climpr-schemas/main/schemas/v1.0.0/climprconfig.json#"
+    },
+    {
+      "fileMatch": [
+        "**/deploymentconfig.json"
+      ],
+      "url": "https://raw.githubusercontent.com/climpr/climpr-schemas/main/schemas/v1.0.0/bicep-deployment/deploymentconfig.json#"
+    },
+    {
+      "fileMatch": [
+        "**/publishconfig.json"
+      ],
+      "url": "https://raw.githubusercontent.com/climpr/climpr-schemas/main/schemas/v1.0.0/bicep-module-publish/publishconfig.json#"
+    },
+    {
+      "fileMatch": [
+        "**/lz-management/**/metadata.json"
+      ],
+      "url": "https://raw.githubusercontent.com/climpr/climpr-schemas/main/schemas/v1.0.0/lz-management/metadata.json#"
+    },
+    {
+      "fileMatch": [
+        "**/lz-management/**/*.existingVnetIds.json"
+      ],
+      "url": "https://raw.githubusercontent.com/climpr/climpr-schemas/main/schemas/v1.0.0/lz-management/existingvnetids.json#"
+    },
+    {
+      "fileMatch": [
+        "**/policy-management/initiatives/*/definitions/*.json"
+      ],
+      "url": "https://raw.githubusercontent.com/climpr/climpr-schemas/main/schemas/v1.0.0/policy-management/policysetdefinition.json#"
+    },
+    {
+      "fileMatch": [
+        "**/policy-management/policies/*/definitions/*.json"
+      ],
+      "url": "https://raw.githubusercontent.com/climpr/climpr-schemas/main/schemas/v1.0.0/policy-management/policydefinition.json#"
+    },
+    {
+      "fileMatch": [
+        "**/policy-management/**/assignments/*.json"
+      ],
+      "url": "https://raw.githubusercontent.com/climpr/climpr-schemas/main/schemas/v1.0.0/policy-management/policyassignment.json#"
+    },
+    {
+      "fileMatch": [
+        "**/policy-management/**/exemptions/*.json"
+      ],
+      "url": "https://raw.githubusercontent.com/climpr/climpr-schemas/main/schemas/v1.0.0/policy-management/policyexemption.json#"
+    }
+  ]
+}

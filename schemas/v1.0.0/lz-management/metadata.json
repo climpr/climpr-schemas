@@ -1,0 +1,123 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Landing Zone definition file schema",
+  "description": "The configuration file used to define a Landing Zone in Climpr",
+  "required": [
+    "organization",
+    "repoName"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "format": "uri-reference"
+    },
+    "disableWorkloadRepoTemplateSync": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableUpdateLzRepoFiles": {
+      "type": "boolean",
+      "default": false
+    },
+    "organization": {
+      "type": "string"
+    },
+    "repoName": {
+      "type": "string"
+    },
+    "repoDescription": {
+      "type": "string"
+    },
+    "repoTemplate": {
+      "type": "string"
+    },
+    "access": {
+      "$ref": "github-api.json#/$defs/access"
+    },
+    "environments": {
+      "type": "array",
+      "additionalProperties": false,
+      "items": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "branchPolicyPatterns": {
+            "$ref": "github-api.json#/$defs/branchPolicyPatterns"
+          },
+          "branchProtection": {
+            "$ref": "github-api.json#/$defs/branchProtection"
+          },
+          "codeOwners": {
+            "$ref": "github-api.json#/$defs/codeOwners"
+          },
+          "runProtection": {
+            "$ref": "github-api.json#/$defs/runProtection"
+          },
+          "azure": {
+            "type": "object",
+            "oneOf": [
+              {
+                "required": [
+                  "archetype",
+                  "subscriptionName",
+                  "parentManagementGroupId",
+                  "billingProfileDisplayName",
+                  "invoiceSectionDisplayName"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "archetype": {
+                    "type": "string",
+                    "not": {
+                      "const": "no-lz"
+                    }
+                  },
+                  "subscriptionName": {
+                    "type": "string"
+                  },
+                  "subscriptionId": {
+                    "type": "string"
+                  },
+                  "parentManagementGroupId": {
+                    "type": "string"
+                  },
+                  "billingProfileDisplayName": {
+                    "type": "string"
+                  },
+                  "invoiceSectionDisplayName": {
+                    "type": "string"
+                  }
+                }
+              },
+              {
+                "required": [
+                  "archetype",
+                  "deploymentSubscriptionId"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "archetype": {
+                    "type": "string",
+                    "const": "no-lz"
+                  },
+                  "deploymentSubscriptionId": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
