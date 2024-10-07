@@ -1,0 +1,140 @@
+{
+  "$id": "https://raw.githubusercontent.com/climpr/climpr-schemas/main/schemas/v1.0.0/policy-management/policyassignment.json#",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Policy Assignment schema",
+  "description": "The schema for Policy Assignments (Microsoft.Authorization/policyAssignments)",
+  "type": "object",
+  "required": [
+    "name",
+    "scope",
+    "properties"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "format": "uri-reference"
+    },
+    "name": {
+      "type": "string",
+      "maxLength": 24,
+      "description": "The name of the policy assignment. The name is unique and cannot be changed afterwords. Max length of 24 characters. Recommendation: Use the first 24 characters from a GUID"
+    },
+    "scope": {
+      "type": "string",
+      "description": "The scope where the policy assignment will be deployed. Supports managementGroup, subscription and resourceGroup scope types."
+    },
+    "properties": {
+      "required": [
+        "policyDefinitionId"
+      ],
+      "allOf": [
+        {
+          "$ref": "https://schema.management.azure.com/schemas/2021-06-01/Microsoft.Authorization.Resources.json#/unknown_resourceDefinitions/policyAssignments/properties/properties"
+        },
+        {
+          "properties": {
+            "parameters": {
+              "additionalProperties": false,
+              "patternProperties": {
+                ".*": {
+                  "oneOf": [
+                    {
+                      "required": [
+                        "value"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "value": {}
+                      }
+                    },
+                    {
+                      "required": [
+                        "reference"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "reference": {
+                          "type": "object",
+                          "required": [
+                            "keyVault",
+                            "secretName"
+                          ],
+                          "additionalProperties": false,
+                          "properties": {
+                            "keyVault": {
+                              "type": "object",
+                              "required": [
+                                "id"
+                              ],
+                              "additionalProperties": false,
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "secretName": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "identity": {
+      "$ref": "https://schema.management.azure.com/schemas/2021-06-01/Microsoft.Authorization.Resources.json#/unknown_resourceDefinitions/policyAssignments/properties/identity",
+      "required": [
+        "type"
+      ],
+      "if": {
+        "properties": {
+          "type": {
+            "const": "UserAssigned"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "userAssignedIdentities"
+        ]
+      }
+    },
+    "location": {
+      "$ref": "https://schema.management.azure.com/schemas/2021-06-01/Microsoft.Authorization.Resources.json#/unknown_resourceDefinitions/policyAssignments/properties/location"
+    },
+    "roleAssignments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "scope",
+          "roleDefinitionId",
+          "description"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "scope": {
+            "type": "string",
+            "description": "The scope on which to apply the role assignment to the policy identity."
+          },
+          "roleDefinitionId": {
+            "type": "string",
+            "description": "The role definition id for the role assignment. Should be in the format of a GUID."
+          },
+          "description": {
+            "type": "string",
+            "description": "A description of the role assignment. Typical usage: The display name of the role definition."
+          }
+        }
+      }
+    }
+  }
+}

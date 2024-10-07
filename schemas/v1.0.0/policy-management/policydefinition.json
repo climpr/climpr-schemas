@@ -1,0 +1,84 @@
+{
+  "$id": "https://raw.githubusercontent.com/climpr/climpr-schemas/main/schemas/v1.0.0/policy-management/policydefinition.json#",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Policy Definition schema",
+  "description": "The schema for Policy Definitions (Microsoft.Authorization/policyDefinitions)",
+  "type": "object",
+  "required": [
+    "name",
+    "properties"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "format": "uri-reference"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the policy. The name is unique and cannot be changed afterwords. Recommendation: Use a GUID"
+    },
+    "scope": {
+      "type": "string",
+      "description": "The scope where the policy will be deployed. Supports managementGroup and subscription scope types. Optional. If not specified, it defaults to the root management group"
+    },
+    "properties": {
+      "required": [
+        "displayName",
+        "metadata",
+        "mode",
+        "policyRule",
+        "policyType"
+      ],
+      "allOf": [
+        {
+          "anyOf": [
+            {
+              "$ref": "https://schema.management.azure.com/schemas/2021-06-01/Microsoft.Authorization.Resources.json#/managementGroup_resourceDefinitions/policyDefinitions/properties/properties"
+            },
+            {
+              "$ref": "https://schema.management.azure.com/schemas/2021-06-01/Microsoft.Authorization.Resources.json#/subscription_resourceDefinitions/policyDefinitions/properties/properties"
+            }
+          ]
+        },
+        {
+          "properties": {
+            "metadata": {
+              "required": [
+                "version",
+                "category"
+              ],
+              "properties": {
+                "version": {
+                  "type": "string"
+                },
+                "category": {
+                  "type": "string"
+                }
+              }
+            },
+            "parameters": {
+              "additionalProperties": false,
+              "patternProperties": {
+                ".*": {
+                  "required": [
+                    "type"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "defaultValue": {}
+                  }
+                }
+              }
+            },
+            "policyRule": {
+              "$ref": "https://schema.management.azure.com/schemas/2020-10-01/policyDefinition.json#"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

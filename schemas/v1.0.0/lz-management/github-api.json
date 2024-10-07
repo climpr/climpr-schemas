@@ -1,0 +1,301 @@
+{
+  "$id": "github-api.json#",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Schema for the GitHub REST API",
+  "description": "The schema for the GitHub REST API",
+  "type": "object",
+  "additionalProperties": false,
+  "$defs": {
+    "access": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "collaborators": {
+          "type": "object",
+          "properties": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "teams": {
+          "type": "object",
+          "properties": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "branchPolicyPatterns": {
+      "type": "array",
+      "additionalProperties": false,
+      "items": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "branch",
+              "tag"
+            ]
+          }
+        }
+      }
+    },
+    "branchProtection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required_status_checks",
+        "enforce_admins",
+        "required_pull_request_reviews",
+        "restrictions"
+      ],
+      "properties": {
+        "required_status_checks": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "required": [
+            "strict",
+            "contexts"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "strict": {
+              "type": "boolean"
+            },
+            "contexts": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "checks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "context"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "context": {
+                    "type": "string"
+                  },
+                  "app_id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "enforce_admins": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "required_pull_request_reviews": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "dismissal_restrictions": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "users": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "teams": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "apps": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "dismiss_stale_reviews": {
+              "type": "boolean"
+            },
+            "require_code_owner_reviews": {
+              "type": "boolean"
+            },
+            "required_approving_review_count": {
+              "type": "integer"
+            },
+            "require_last_push_approval": {
+              "type": "boolean"
+            },
+            "bypass_pull_request_allowances": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "users": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "teams": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "apps": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "restrictions": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "required": [
+            "users",
+            "teams"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "users": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "teams": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "apps": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "required_linear_history": {
+          "type": "boolean"
+        },
+        "allow_force_pushes": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "allow_deletions": {
+          "type": "boolean"
+        },
+        "block_creations": {
+          "type": "boolean"
+        },
+        "required_conversation_resolution": {
+          "type": "boolean"
+        },
+        "lock_branch": {
+          "type": "boolean"
+        },
+        "allow_fork_syncing": {
+          "type": "boolean"
+        }
+      }
+    },
+    "codeOwners": {
+      "type": "array",
+      "additionalProperties": false,
+      "items": {
+        "type": "string"
+      }
+    },
+    "runProtection": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "wait_timer": {
+          "type": "integer"
+        },
+        "prevent_self_review": {
+          "type": "boolean"
+        },
+        "reviewers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "User",
+                  "Team"
+                ]
+              },
+              "id": {
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "deployment_branch_policy": {
+          "type": "object",
+          "required": [
+            "protected_branches",
+            "custom_branch_policies"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "protected_branches": {
+              "type": "boolean"
+            },
+            "custom_branch_policies": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  }
+}

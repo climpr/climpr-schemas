@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "existingvnetids.json#",
+  "title": "Existing VNet Ids schema",
+  "description": "A list of existing VNet resource Ids",
+  "type": "array",
+  "additionalProperties": false,
+  "items": {
+    "type": "string"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "$id": "https://raw.githubusercontent.com/climpr/climpr-schemas/main/schemas/v1.0.0/policy-management/policyexemption.json#",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Policy Exemption schema",
+  "description": "The schema for Policy Exemptions (Microsoft.Authorization/policyExemptions)",
+  "type": "object",
+  "required": [
+    "name",
+    "scope",
+    "properties"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "format": "uri-reference"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the exemption. The name is unique and cannot be changed afterwords. Recommendation: Use a GUID"
+    },
+    "scope": {
+      "type": "string",
+      "description": "The scope where the exemption will be deployed. Azure resource id. Supports all scope types, resources, resourceGroups, subscriptions and managementGroups."
+    },
+    "properties": {
+      "allOf": [
+        {
+          "$ref": "https://raw.githubusercontent.com/Azure/azure-resource-manager-schemas/393ce6d0712168f133321e588c34023ccb2adbcd/schemas/2022-07-01-preview/Microsoft.Authorization.Resources.json#/unknown_resourceDefinitions/policyExemptions/properties/properties"
+        }
+      ]
+    }
+  }
+}

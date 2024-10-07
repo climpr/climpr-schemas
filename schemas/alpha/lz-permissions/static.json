@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "static.json#",
+  "title": "Landing Zone static role assignments schema",
+  "description": "The configuration file used to define static role assignments for a Landing Zone (Azure Subscription)",
+  "type": "object",
+  "additionalProperties": false,
+  "patternProperties": {
+    ".*": {
+      "type": "array",
+      "items": {
+        "required": [
+          "principalType"
+        ],
+        "anyOf": [
+          {
+            "required": [
+              "objectId"
+            ]
+          },
+          {
+            "required": [
+              "userPrincipalName"
+            ]
+          },
+          {
+            "required": [
+              "displayName"
+            ]
+          },
+          {
+            "required": [
+              "appId"
+            ]
+          }
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "userPrincipalName": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^.+?@.+?$"
+          },
+          "appId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$"
+          },
+          "objectId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$"
+          },
+          "principalType": {
+            "type": "string",
+            "enum": [
+              "user",
+              "group",
+              "servicePrincipal"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
