@@ -5,7 +5,6 @@
   "description": "All properties related to the landing zone management feature configuration.",
   "type": "object",
   "required": [
-    "enabled",
     "defaultLocation",
     "rootManagementGroupId",
     "decommissionedManagementGroupId",
@@ -14,11 +13,6 @@
   ],
   "additionalProperties": false,
   "properties": {
-    "enabled": {
-      "type": "boolean",
-      "description": "!!! NOT IN USE YET - Enables or disables the lzManagement features.",
-      "default": false
-    },
     "defaultLocation": {
       "type": "string",
       "description": "The default location for for all deployment functions.",
@@ -41,8 +35,6 @@
       "description": "All properties associated to the repository creation and configuration for workload repositories.",
       "required": [
         "template",
-        "createDefaultTeam",
-        "createDefaultTeamEntraIdSyncedGroup",
         "access",
         "branchPolicyPatterns",
         "branchProtection",
@@ -55,16 +47,88 @@
           "type": "string",
           "description": "The repository name for the template repository for the workload management solution."
         },
-        "createDefaultTeam": {
-          "type": "boolean",
-          "description": "When this is enabled, a default team is created for each workload management repository."
-        },
-        "createDefaultTeamEntraIdSyncedGroup": {
-          "type": "boolean",
-          "description": "When this is enabled, a the default team is synced to Entra Id as a synced group."
-        },
         "access": {
           "$ref": "github-api.json#/$defs/access"
+        },
+        "defaultTeam": {
+          "type": "object",
+          "description": "Configuration for default team creation functionality for workload repositories.",
+          "required": [],
+          "if": {
+            "properties": {
+              "enabled": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "permission"
+            ]
+          },
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "description": "When set to true, the default team is created.",
+              "default": "false"
+            },
+            "permission": {
+              "type": "string",
+              "description": "The github permission the team is assigned on the repository.",
+              "$ref": "github-api.json#/$defs/repoPermissions"
+            },
+            "syncWithEntraId": {
+              "type": "boolean",
+              "description": "When set to true, an associated Entra Id group and team <--> group mapping is created.",
+              "default": false
+            },
+            "teamNamePrefix": {
+              "type": "string",
+              "description": "Prefix for calculating the default team name.",
+              "default": "LZ "
+            },
+            "teamNameSuffix": {
+              "type": "string",
+              "description": "Suffix for calculating the default team name.",
+              "default": ""
+            },
+            "teamNameIncludeLzName": {
+              "type": "boolean",
+              "description": "Including the lz Name in the default team name. Format: '<teamNamePrefix><lzName><teamNameSuffix>'",
+              "default": true
+            },
+            "descriptionPrefix": {
+              "type": "string",
+              "description": "Prefix for calculating the default team name.",
+              "default": "Team for Azure Landing Zone "
+            },
+            "descriptionSuffix": {
+              "type": "string",
+              "description": "Suffix for calculating the default team name.",
+              "default": ". Automatically created by CLIMPR Framework."
+            },
+            "descriptionIncludeLzName": {
+              "type": "boolean",
+              "description": "Including the lz Name in the default team/group description. Format: '<descriptionPrefix><lzName><descriptionSuffix>'",
+              "default": true
+            },
+            "groupNamePrefix": {
+              "type": "string",
+              "description": "Prefix for calculating the default team name.",
+              "default": "SYS_(CLIMPR)_("
+            },
+            "groupNameSuffix": {
+              "type": "string",
+              "description": "Suffix for calculating the default team name.",
+              "default": ")"
+            },
+            "groupNameIncludeLzName": {
+              "type": "boolean",
+              "description": "Including the lz Name in the default team/group description. Format: '<descriptionPrefix><lzName><descriptionSuffix>'",
+              "default": true
+            }
+          }
         },
         "branchPolicyPatterns": {
           "$ref": "github-api.json#/$defs/branchPolicyPatterns"

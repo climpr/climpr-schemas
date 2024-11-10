@@ -13,6 +13,10 @@
       "type": "string",
       "format": "uri-reference"
     },
+    "decommissioned": {
+      "type": "boolean",
+      "description": "Setting this to true will decommission the Landing Zone, including any environments or Azure subscriptions."
+    },
     "disableWorkloadRepoTemplateSync": {
       "type": "boolean",
       "default": false
@@ -36,6 +40,12 @@
     "access": {
       "$ref": "github-api.json#/$defs/access"
     },
+    "branchProtection": {
+      "$ref": "github-api.json#/$defs/branchProtection"
+    },
+    "codeOwners": {
+      "$ref": "github-api.json#/$defs/codeOwners"
+    },
     "environments": {
       "type": "array",
       "additionalProperties": false,
@@ -49,17 +59,15 @@
           "name": {
             "type": "string"
           },
-          "branchPolicyPatterns": {
-            "$ref": "github-api.json#/$defs/branchPolicyPatterns"
-          },
-          "branchProtection": {
-            "$ref": "github-api.json#/$defs/branchProtection"
-          },
-          "codeOwners": {
-            "$ref": "github-api.json#/$defs/codeOwners"
+          "decommissioned": {
+            "type": "boolean",
+            "description": "Setting this to true will decommission the environment."
           },
           "runProtection": {
             "$ref": "github-api.json#/$defs/runProtection"
+          },
+          "branchPolicyPatterns": {
+            "$ref": "github-api.json#/$defs/branchPolicyPatterns"
           },
           "azure": {
             "type": "object",
@@ -74,6 +82,10 @@
                 ],
                 "additionalProperties": false,
                 "properties": {
+                  "decommissioned": {
+                    "type": "boolean",
+                    "description": "Setting this to true will decommission the Azure subscription."
+                  },
                   "archetype": {
                     "type": "string",
                     "not": {
