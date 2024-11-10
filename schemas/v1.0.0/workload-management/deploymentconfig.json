@@ -9,7 +9,6 @@
   "properties": {
     "$schema": {
       "type": "string",
-      "description": "The reference to the json schema.",
       "format": "uri-reference"
     },
     "disabled": {
