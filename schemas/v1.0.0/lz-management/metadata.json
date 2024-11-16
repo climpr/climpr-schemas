@@ -33,32 +33,28 @@
       "type": "object",
       "description": "Properties related to the 'update-landing-zone-repositories' feature.",
       "additionalProperties": false,
-      "oneOf": [
-        {
-          "if": {
-            "properties": {
-              "disable": {
-                "const": true
-              }
-            }
-          },
-          "else": {
-            "required": [
-              "source"
-            ]
-          },
-          "properties": {
-            "source": {
-              "type": "string",
-              "description": "The name of the directory below the 'repo-sources-path' directory. If this is specified, it will take presedence over the 'repoTemplate' property as the source of the sync."
-            },
-            "disable": {
-              "type": "boolean",
-              "description": "Setting this to 'true' disables the 'update-landing-zone-repositories' feature for this Landing Zone."
-            }
+      "if": {
+        "properties": {
+          "disable": {
+            "const": true
           }
         }
-      ]
+      },
+      "else": {
+        "required": [
+          "source"
+        ]
+      },
+      "properties": {
+        "source": {
+          "type": "string",
+          "description": "The name of the directory below the 'repo-sources-path' directory. If this is specified, it will take presedence over the 'repoTemplate' property as the source of the sync."
+        },
+        "disable": {
+          "type": "boolean",
+          "description": "Setting this to 'true' disables the 'update-landing-zone-repositories' feature for this Landing Zone."
+        }
+      }
     },
     "access": {
       "$ref": "github-api.json#/$defs/access"
