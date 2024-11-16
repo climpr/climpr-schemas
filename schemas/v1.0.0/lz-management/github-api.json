@@ -6,29 +6,33 @@
   "type": "object",
   "additionalProperties": false,
   "$defs": {
+    "repoPermissions": {
+      "type": "string",
+      "description": "GitHub repository permissions.",
+      "enum": [
+        "pull",
+        "triage",
+        "push",
+        "maintain",
+        "admin"
+      ]
+    },
     "access": {
       "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "collaborators": {
+      "propertyNames": {
+        "enum": [
+          "teams",
+          "collaborators"
+        ]
+      },
+      "patternProperties": {
+        ".*": {
           "type": "object",
-          "properties": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "teams": {
-          "type": "object",
-          "properties": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
+          "propertyNames": {
+            "$ref": "#/$defs/repoPermissions"
+          },
+          "patternProperties": {
+            ".*": {
               "type": "array",
               "items": {
                 "type": "string"
