@@ -34,7 +34,6 @@
       "type": "object",
       "description": "All properties associated to the repository creation and configuration for workload repositories.",
       "required": [
-        "template",
         "access",
         "branchPolicyPatterns",
         "branchProtection",
@@ -46,6 +45,9 @@
         "template": {
           "type": "string",
           "description": "The repository name for the template repository for the workload management solution."
+        },
+        "repoSource": {
+          "$ref": "metadata.json#/$defs/repoSource"
         },
         "access": {
           "$ref": "github-api.json#/$defs/access"
