@@ -75,9 +75,7 @@
                 "required": [
                   "archetype",
                   "subscriptionName",
-                  "parentManagementGroupId",
-                  "billingProfileDisplayName",
-                  "invoiceSectionDisplayName"
+                  "parentManagementGroupId"
                 ],
                 "additionalProperties": false,
                 "properties": {
