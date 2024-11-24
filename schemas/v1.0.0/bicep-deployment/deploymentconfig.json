@@ -265,6 +265,9 @@
                 "resourceGroupName": {
                   "$ref": "#/$defs/stack/resourceGroupName"
                 },
+                "actionOnUnmanage": {
+                  "$ref": "#/$defs/stack/actionOnUnmanage"
+                },
                 "denySettingsMode": {
                   "$ref": "#/$defs/stack/denySettingsMode"
                 },
@@ -330,8 +333,8 @@
                 "name": {
                   "$ref": "#/$defs/stack/name"
                 },
-                "resourceGroupName": {
-                  "$ref": "#/$defs/stack/resourceGroupName"
+                "actionOnUnmanage": {
+                  "$ref": "#/$defs/stack/actionOnUnmanage"
                 },
                 "denySettingsMode": {
                   "$ref": "#/$defs/stack/denySettingsMode"
@@ -407,6 +410,9 @@
                 },
                 "managementGroupId": {
                   "$ref": "#/$defs/stack/managementGroupId"
+                },
+                "actionOnUnmanage": {
+                  "$ref": "#/$defs/stack/actionOnUnmanage"
                 },
                 "denySettingsMode": {
                   "$ref": "#/$defs/stack/denySettingsMode"
