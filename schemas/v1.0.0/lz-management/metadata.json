@@ -34,42 +34,7 @@
       "default": false
     },
     "repoSource": {
-      "type": "object",
-      "description": "Properties related to the 'update-landing-zone-repositories' feature.",
-      "oneOf": [
-        {
-          "required": [
-            "source"
-          ],
-          "additionalProperties": false,
-          "properties": {
-            "source": {
-              "type": "string",
-              "description": "The name of the directory below the 'repo-sources-path' directory. If this is specified, it will take presedence over the 'repoTemplate' property as the source of the sync."
-            },
-            "disable": {
-              "const": false,
-              "description": "Setting this to 'true' disables the 'update-landing-zone-repositories' feature for this Landing Zone."
-            }
-          }
-        },
-        {
-          "required": [
-            "disable"
-          ],
-          "additionalProperties": false,
-          "properties": {
-            "source": {
-              "type": "string",
-              "description": "The name of the directory below the 'repo-sources-path' directory. If this is specified, it will take presedence over the 'repoTemplate' property as the source of the sync."
-            },
-            "disable": {
-              "const": true,
-              "description": "Setting this to 'true' disables the 'update-landing-zone-repositories' feature for this Landing Zone."
-            }
-          }
-        }
-      ]
+      "$ref": "#/$defs/repoSource"
     },
     "access": {
       "$ref": "github-api.json#/$defs/access"
@@ -110,9 +75,7 @@
                 "required": [
                   "archetype",
                   "subscriptionName",
-                  "parentManagementGroupId",
-                  "billingProfileDisplayName",
-                  "invoiceSectionDisplayName"
+                  "parentManagementGroupId"
                 ],
                 "additionalProperties": false,
                 "properties": {
@@ -164,6 +127,46 @@
           }
         }
       }
+    }
+  },
+  "$defs": {
+    "repoSource": {
+      "type": "object",
+      "description": "Properties related to the 'update-landing-zone-repositories' feature.",
+      "oneOf": [
+        {
+          "required": [
+            "source"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "source": {
+              "type": "string",
+              "description": "The name of the directory below the 'repo-sources-path' directory. If this is specified, it will take presedence over the 'repoTemplate' property as the source of the sync."
+            },
+            "disable": {
+              "const": false,
+              "description": "Setting this to 'true' disables the 'update-landing-zone-repositories' feature for this Landing Zone."
+            }
+          }
+        },
+        {
+          "required": [
+            "disable"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "source": {
+              "type": "string",
+              "description": "The name of the directory below the 'repo-sources-path' directory. If this is specified, it will take presedence over the 'repoTemplate' property as the source of the sync."
+            },
+            "disable": {
+              "const": true,
+              "description": "Setting this to 'true' disables the 'update-landing-zone-repositories' feature for this Landing Zone."
+            }
+          }
+        }
+      ]
     }
   }
 }
