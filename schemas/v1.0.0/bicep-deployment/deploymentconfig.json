@@ -212,7 +212,7 @@
       "if": {
         "properties": {
           "type": {
-            "const": "stack"
+            "const": "deploymentStack"
           }
         }
       },
@@ -237,12 +237,12 @@
                 "name",
                 "resourceGroupName",
                 "actionOnUnmanage",
-                "denySettingsMode"
+                "denySettings"
               ],
               "additionalProperties": false,
               "properties": {
                 "type": {
-                  "const": "stack"
+                  "const": "deploymentStack"
                 },
                 "scope": {
                   "const": "resourceGroup"
@@ -260,34 +260,25 @@
                   "$ref": "#/$defs/common/azureCliVersion"
                 },
                 "name": {
-                  "$ref": "#/$defs/stack/name"
+                  "$ref": "#/$defs/deploymentStack/name"
                 },
                 "resourceGroupName": {
-                  "$ref": "#/$defs/stack/resourceGroupName"
+                  "$ref": "#/$defs/deploymentStack/resourceGroupName"
                 },
                 "actionOnUnmanage": {
-                  "$ref": "#/$defs/stack/actionOnUnmanage"
-                },
-                "denySettingsMode": {
-                  "$ref": "#/$defs/stack/denySettingsMode"
+                  "$ref": "#/$defs/deploymentStack/actionOnUnmanage"
                 },
                 "bypassStackOutOfSyncError": {
-                  "$ref": "#/$defs/stack/bypassStackOutOfSyncError"
+                  "$ref": "#/$defs/deploymentStack/bypassStackOutOfSyncError"
                 },
-                "denySettingsApplyToChildScopes": {
-                  "$ref": "#/$defs/stack/denySettingsApplyToChildScopes"
-                },
-                "denySettingsExcludedActions": {
-                  "$ref": "#/$defs/stack/denySettingsExcludedActions"
-                },
-                "denySettingsExcludedPrincipals": {
-                  "$ref": "#/$defs/stack/denySettingsExcludedPrincipals"
+                "denySettings": {
+                  "$ref": "#/$defs/deploymentStack/denySettings"
                 },
                 "description": {
-                  "$ref": "#/$defs/stack/description"
+                  "$ref": "#/$defs/deploymentStack/description"
                 },
                 "tags": {
-                  "$ref": "#/$defs/stack/tags"
+                  "$ref": "#/$defs/deploymentStack/tags"
                 }
               }
             },
@@ -308,12 +299,12 @@
               "required": [
                 "name",
                 "actionOnUnmanage",
-                "denySettingsMode"
+                "denySettings"
               ],
               "additionalProperties": false,
               "properties": {
                 "type": {
-                  "const": "stack"
+                  "const": "deploymentStack"
                 },
                 "scope": {
                   "const": "subscription"
@@ -331,37 +322,28 @@
                   "$ref": "#/$defs/common/azureCliVersion"
                 },
                 "name": {
-                  "$ref": "#/$defs/stack/name"
+                  "$ref": "#/$defs/deploymentStack/name"
                 },
                 "actionOnUnmanage": {
-                  "$ref": "#/$defs/stack/actionOnUnmanage"
-                },
-                "denySettingsMode": {
-                  "$ref": "#/$defs/stack/denySettingsMode"
+                  "$ref": "#/$defs/deploymentStack/actionOnUnmanage"
                 },
                 "bypassStackOutOfSyncError": {
-                  "$ref": "#/$defs/stack/bypassStackOutOfSyncError"
+                  "$ref": "#/$defs/deploymentStack/bypassStackOutOfSyncError"
                 },
-                "denySettingsApplyToChildScopes": {
-                  "$ref": "#/$defs/stack/denySettingsApplyToChildScopes"
-                },
-                "denySettingsExcludedActions": {
-                  "$ref": "#/$defs/stack/denySettingsExcludedActions"
-                },
-                "denySettingsExcludedPrincipals": {
-                  "$ref": "#/$defs/stack/denySettingsExcludedPrincipals"
+                "denySettings": {
+                  "$ref": "#/$defs/deploymentStack/denySettings"
                 },
                 "deploymentResourceGroup": {
-                  "$ref": "#/$defs/stack/deploymentResourceGroup"
+                  "$ref": "#/$defs/deploymentStack/deploymentResourceGroup"
                 },
                 "description": {
-                  "$ref": "#/$defs/stack/description"
+                  "$ref": "#/$defs/deploymentStack/description"
                 },
                 "location": {
-                  "$ref": "#/$defs/stack/location"
+                  "$ref": "#/$defs/deploymentStack/location"
                 },
                 "tags": {
-                  "$ref": "#/$defs/stack/tags"
+                  "$ref": "#/$defs/deploymentStack/tags"
                 }
               }
             },
@@ -383,12 +365,12 @@
                 "name",
                 "managementGroupId",
                 "actionOnUnmanage",
-                "denySettingsMode"
+                "denySettings"
               ],
               "additionalProperties": false,
               "properties": {
                 "type": {
-                  "const": "stack"
+                  "const": "deploymentStack"
                 },
                 "scope": {
                   "const": "managementGroup"
@@ -406,40 +388,31 @@
                   "$ref": "#/$defs/common/azureCliVersion"
                 },
                 "name": {
-                  "$ref": "#/$defs/stack/name"
+                  "$ref": "#/$defs/deploymentStack/name"
                 },
                 "managementGroupId": {
-                  "$ref": "#/$defs/stack/managementGroupId"
+                  "$ref": "#/$defs/deploymentStack/managementGroupId"
                 },
                 "actionOnUnmanage": {
-                  "$ref": "#/$defs/stack/actionOnUnmanage"
-                },
-                "denySettingsMode": {
-                  "$ref": "#/$defs/stack/denySettingsMode"
+                  "$ref": "#/$defs/deploymentStack/actionOnUnmanage"
                 },
                 "bypassStackOutOfSyncError": {
-                  "$ref": "#/$defs/stack/bypassStackOutOfSyncError"
+                  "$ref": "#/$defs/deploymentStack/bypassStackOutOfSyncError"
                 },
-                "denySettingsApplyToChildScopes": {
-                  "$ref": "#/$defs/stack/denySettingsApplyToChildScopes"
-                },
-                "denySettingsExcludedActions": {
-                  "$ref": "#/$defs/stack/denySettingsExcludedActions"
-                },
-                "denySettingsExcludedPrincipals": {
-                  "$ref": "#/$defs/stack/denySettingsExcludedPrincipals"
+                "denySettings": {
+                  "$ref": "#/$defs/deploymentStack/denySettings"
                 },
                 "deploymentSubscription": {
-                  "$ref": "#/$defs/stack/deploymentSubscription"
+                  "$ref": "#/$defs/deploymentStack/deploymentSubscription"
                 },
                 "description": {
-                  "$ref": "#/$defs/stack/description"
+                  "$ref": "#/$defs/deploymentStack/description"
                 },
                 "location": {
-                  "$ref": "#/$defs/stack/location"
+                  "$ref": "#/$defs/deploymentStack/location"
                 },
                 "tags": {
-                  "$ref": "#/$defs/stack/tags"
+                  "$ref": "#/$defs/deploymentStack/tags"
                 }
               }
             },
@@ -454,18 +427,21 @@
     "common": {
       "$schema": {
         "type": "string",
+        "description": "The schema to verify this document against.",
         "format": "uri-reference"
       },
       "type": {
         "type": "string",
+        "description": "Specifies the execution type.",
         "enum": [
           "deployment",
-          "stack"
+          "deploymentStack"
         ],
         "default": "deployment"
       },
       "scope": {
         "type": "string",
+        "description": "Specifies the scope of the deployment or deploymentStack.",
         "enum": [
           "resourceGroup",
           "subscription",
@@ -480,6 +456,7 @@
       },
       "triggers": {
         "type": "object",
+        "description": "Configuration to apply for specific triggers in GitHub.",
         "propertyNames": {
           "enum": [
             "workflow_dispatch",
@@ -504,6 +481,7 @@
       },
       "azureCliVersion": {
         "type": "string",
+        "description": "The Azure CLI version to use.",
         "format": "regex",
         "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
       }
@@ -531,7 +509,7 @@
         "maxLength": 90
       }
     },
-    "stack": {
+    "deploymentStack": {
       "name": {
         "type": "string",
         "description": "The name of the deployment stack."
@@ -562,56 +540,99 @@
         "description": "The scope at which the initial deployment should be created. If a scope is not specified, it will default to the scope of the deployment stack."
       },
       "actionOnUnmanage": {
-        "type": "string",
-        "description": "Defines what happens to resources that are no longer managed after the stack is updated or deleted.",
-        "enum": [
-          "deleteAll",
-          "deleteResources",
-          "detachAll"
-        ]
+        "type": "object",
+        "description": "Defines the behavior of resources that are not managed immediately after the stack is updated.",
+        "additionalProperties": false,
+        "required": [
+          "resources"
+        ],
+        "properties": {
+          "resources": {
+            "type": "string",
+            "description": "Specifies the action that should be taken on the resource when the deployment stack is deleted. Delete will attempt to delete the resource from Azure. Detach will leave the resource in it's current state.",
+            "enum": [
+              "delete",
+              "detach"
+            ]
+          },
+          "resourceGroups": {
+            "type": "string",
+            "description": "Specifies the action that should be taken on the resource when the deployment stack is deleted. Delete will attempt to delete the resource from Azure. Detach will leave the resource in it's current state.",
+            "enum": [
+              "delete",
+              "detach"
+            ]
+          },
+          "managementGroups": {
+            "type": "string",
+            "description": "Specifies the action that should be taken on the resource when the deployment stack is deleted. Delete will attempt to delete the resource from Azure. Detach will leave the resource in it's current state.",
+            "enum": [
+              "delete",
+              "detach"
+            ]
+          }
+        }
       },
       "bypassStackOutOfSyncError": {
         "type": "boolean",
         "description": "Flag to bypass service errors that indicate the stack resource list is not correctly synchronized. Default 'false'.",
         "default": false
       },
-      "denySettingsMode": {
-        "type": "string",
-        "description": "Define which operations are denied on resources managed by the stack.",
-        "enum": [
-          "denyDelete",
-          "denyWriteAndDelete",
-          "none"
-        ]
-      },
-      "denySettingsApplyToChildScopes": {
-        "type": "boolean",
-        "description": "DenySettings will be applied to child scopes. Default: 'false'.",
-        "default": false
-      },
-      "denySettingsExcludedActions": {
-        "type": "array",
-        "description": "List of role-based management operations that are excluded from the denySettings. Up to 200 actions are permitted.",
-        "maxLength": 200,
-        "items": {
-          "type": "string"
-        }
-      },
-      "denySettingsExcludedPrincipals": {
-        "type": "array",
-        "description": "List of AAD principal IDs excluded from the lock. Up to 5 principals are permitted.",
-        "maxLength": 5,
-        "items": {
-          "type": "string"
+      "denySettings": {
+        "type": "object",
+        "description": "Defines how resources deployed by the stack are locked.",
+        "required": [],
+        "additionalProperties": false,
+        "properties": {
+          "applyToChildScopes": {
+            "type": "boolean",
+            "description": "DenySettings will be applied to child scopes. Default: 'false'.",
+            "default": false
+          },
+          "excludedActions": {
+            "type": "array",
+            "description": "List of role-based management operations that are excluded from the denySettings. Up to 200 actions are permitted. If the denySetting mode is set to 'denyWriteAndDelete', then the following actions are automatically appended to 'excludedActions': '*/read' and 'Microsoft.Authorization/locks/delete'. If the denySetting mode is set to 'denyDelete', then the following actions are automatically appended to 'excludedActions': 'Microsoft.Authorization/locks/delete'. Duplicate actions will be removed.",
+            "maxLength": 200,
+            "items": {
+              "type": "string"
+            }
+          },
+          "excludedPrincipals": {
+            "type": "array",
+            "description": "List of AAD principal IDs excluded from the lock. Up to 5 principals are permitted.",
+            "maxLength": 5,
+            "items": {
+              "type": "string"
+            }
+          },
+          "mode": {
+            "anyOf": [
+              {
+                "type": "string",
+                "const": "denyDelete",
+                "description": "Authorized users are able to read and modify the resources, but cannot delete."
+              },
+              {
+                "type": "string",
+                "const": "denyWriteAndDelete",
+                "description": "Authorized users can only read from a resource, but cannot modify or delete it."
+              },
+              {
+                "type": "string",
+                "const": "none",
+                "description": "No denyAssignments have been applied."
+              }
+            ]
+          }
         }
       },
       "description": {
         "type": "string",
-        "description": "The description of deployment stack."
+        "description": "Deployment stack description."
       },
       "tags": {
         "type": "object",
-        "description": "Tags to apply to the stack. Key=value format."
+        "description": "Deployment stack resource tags. Key=value format."
       }
     }
   }
