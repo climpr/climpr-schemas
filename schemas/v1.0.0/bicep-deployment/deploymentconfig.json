@@ -1,69 +1,639 @@
 {
   "$id": "https://raw.githubusercontent.com/climpr/climpr-schemas/main/schemas/v1.0.0/bicep-deployment/deploymentconfig.json#",
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Deployment configuration for Bicep deployments",
-  "description": "The schema for the deployment configuration file used for Bicep deployments in Climpr",
-  "type": "object",
-  "required": [],
-  "additionalProperties": false,
+  "title": "Deployment configuration for Climpr Bicep deployments",
   "properties": {
-    "$schema": {
-      "type": "string",
-      "format": "uri-reference"
+    "type": {
+      "$ref": "#/$defs/common/type"
     },
-    "disabled": {
-      "type": "boolean",
-      "description": "Setting this to true disables the deployment regardless of the triggering event."
-    },
-    "triggers": {
-      "type": "object",
-      "propertyNames": {
-        "enum": [
-          "workflow_dispatch",
-          "schedule",
-          "pull_request_target",
-          "push"
+    "scope": {
+      "$ref": "#/$defs/common/scope"
+    }
+  },
+  "oneOf": [
+    {
+      "$comment": "Bicep deployment",
+      "if": {
+        "properties": {
+          "type": {
+            "const": "deployment"
+          }
+        }
+      },
+      "then": {
+        "oneOf": [
+          {
+            "$comment": "Bicep deployment - Resource Group scope",
+            "if": {
+              "properties": {
+                "scope": {
+                  "const": "resourceGroup"
+                }
+              }
+            },
+            "then": {
+              "description": "The schema for Bicep deployments scoped to a Resource Group",
+              "type": "object",
+              "required": [
+                "resourceGroupName"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "type": {
+                  "const": "deployment"
+                },
+                "scope": {
+                  "const": "resourceGroup"
+                },
+                "$schema": {
+                  "$ref": "#/$defs/common/$schema"
+                },
+                "disabled": {
+                  "$ref": "#/$defs/common/disabled"
+                },
+                "triggers": {
+                  "$ref": "#/$defs/common/triggers"
+                },
+                "azureCliVersion": {
+                  "$ref": "#/$defs/common/azureCliVersion"
+                },
+                "name": {
+                  "$ref": "#/$defs/deployment/name"
+                },
+                "resourceGroupName": {
+                  "$ref": "#/$defs/deployment/resourceGroupName"
+                }
+              }
+            },
+            "else": false
+          },
+          {
+            "$comment": "Bicep deployment - Subscription scope",
+            "if": {
+              "properties": {
+                "scope": {
+                  "const": "subscription"
+                }
+              }
+            },
+            "then": {
+              "description": "The schema for Bicep deployments scoped to a Subscription",
+              "type": "object",
+              "required": [],
+              "additionalProperties": false,
+              "properties": {
+                "type": {
+                  "const": "deployment"
+                },
+                "scope": {
+                  "const": "subscription"
+                },
+                "$schema": {
+                  "$ref": "#/$defs/common/$schema"
+                },
+                "disabled": {
+                  "$ref": "#/$defs/common/disabled"
+                },
+                "triggers": {
+                  "$ref": "#/$defs/common/triggers"
+                },
+                "azureCliVersion": {
+                  "$ref": "#/$defs/common/azureCliVersion"
+                },
+                "name": {
+                  "$ref": "#/$defs/deployment/name"
+                },
+                "location": {
+                  "$ref": "#/$defs/deployment/location"
+                }
+              }
+            },
+            "else": false
+          },
+          {
+            "$comment": "Bicep deployment - Management Group scope",
+            "if": {
+              "properties": {
+                "scope": {
+                  "const": "managementGroup"
+                }
+              }
+            },
+            "then": {
+              "description": "The schema for Bicep deployments scoped to a Management Group",
+              "type": "object",
+              "required": [
+                "managementGroupId"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "type": {
+                  "const": "deployment"
+                },
+                "scope": {
+                  "const": "managementGroup"
+                },
+                "$schema": {
+                  "$ref": "#/$defs/common/$schema"
+                },
+                "disabled": {
+                  "$ref": "#/$defs/common/disabled"
+                },
+                "triggers": {
+                  "$ref": "#/$defs/common/triggers"
+                },
+                "azureCliVersion": {
+                  "$ref": "#/$defs/common/azureCliVersion"
+                },
+                "name": {
+                  "$ref": "#/$defs/deployment/name"
+                },
+                "location": {
+                  "$ref": "#/$defs/deployment/location"
+                },
+                "managementGroupId": {
+                  "$ref": "#/$defs/deployment/managementGroupId"
+                }
+              }
+            },
+            "else": false
+          },
+          {
+            "$comment": "Bicep deployment - Tenant scope",
+            "if": {
+              "properties": {
+                "scope": {
+                  "const": "tenant"
+                }
+              }
+            },
+            "then": {
+              "description": "The schema for Bicep deployments scoped to a Tenant",
+              "type": "object",
+              "required": [
+                "scope"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "type": {
+                  "const": "deployment"
+                },
+                "scope": {
+                  "const": "tenant"
+                },
+                "$schema": {
+                  "$ref": "#/$defs/common/$schema"
+                },
+                "disabled": {
+                  "$ref": "#/$defs/common/disabled"
+                },
+                "triggers": {
+                  "$ref": "#/$defs/common/triggers"
+                },
+                "azureCliVersion": {
+                  "$ref": "#/$defs/common/azureCliVersion"
+                },
+                "name": {
+                  "$ref": "#/$defs/deployment/name"
+                },
+                "location": {
+                  "$ref": "#/$defs/deployment/location"
+                }
+              }
+            },
+            "else": false
+          }
         ]
       },
-      "additionalProperties": false,
-      "patternProperties": {
-        ".*": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "disabled": {
-              "type": "boolean",
-              "description": "Setting this to true disables the deployment when triggered from this specific triggering event."
+      "else": false
+    },
+    {
+      "$comment": "Deployment Stack",
+      "if": {
+        "properties": {
+          "type": {
+            "const": "deploymentStack"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "type"
+        ],
+        "oneOf": [
+          {
+            "$comment": "Deployment Stack - Resource Group scope",
+            "if": {
+              "properties": {
+                "scope": {
+                  "const": "resourceGroup"
+                }
+              }
+            },
+            "then": {
+              "description": "The schema for Deployment Stacks scoped to a Resource Group",
+              "type": "object",
+              "required": [
+                "name",
+                "resourceGroupName",
+                "actionOnUnmanage",
+                "denySettings"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "type": {
+                  "const": "deploymentStack"
+                },
+                "scope": {
+                  "const": "resourceGroup"
+                },
+                "$schema": {
+                  "$ref": "#/$defs/common/$schema"
+                },
+                "disabled": {
+                  "$ref": "#/$defs/common/disabled"
+                },
+                "triggers": {
+                  "$ref": "#/$defs/common/triggers"
+                },
+                "azureCliVersion": {
+                  "$ref": "#/$defs/common/azureCliVersion"
+                },
+                "name": {
+                  "$ref": "#/$defs/deploymentStack/name"
+                },
+                "resourceGroupName": {
+                  "$ref": "#/$defs/deploymentStack/resourceGroupName"
+                },
+                "actionOnUnmanage": {
+                  "$ref": "#/$defs/deploymentStack/actionOnUnmanage"
+                },
+                "bypassStackOutOfSyncError": {
+                  "$ref": "#/$defs/deploymentStack/bypassStackOutOfSyncError"
+                },
+                "denySettings": {
+                  "$ref": "#/$defs/deploymentStack/denySettings"
+                },
+                "description": {
+                  "$ref": "#/$defs/deploymentStack/description"
+                },
+                "tags": {
+                  "$ref": "#/$defs/deploymentStack/tags"
+                }
+              }
+            },
+            "else": false
+          },
+          {
+            "$comment": "Deployment Stack - Subscription scope",
+            "if": {
+              "properties": {
+                "scope": {
+                  "const": "subscription"
+                }
+              }
+            },
+            "then": {
+              "description": "The schema for Deployment Stacks scoped to a Subscription",
+              "type": "object",
+              "required": [
+                "name",
+                "actionOnUnmanage",
+                "denySettings"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "type": {
+                  "const": "deploymentStack"
+                },
+                "scope": {
+                  "const": "subscription"
+                },
+                "$schema": {
+                  "$ref": "#/$defs/common/$schema"
+                },
+                "disabled": {
+                  "$ref": "#/$defs/common/disabled"
+                },
+                "triggers": {
+                  "$ref": "#/$defs/common/triggers"
+                },
+                "azureCliVersion": {
+                  "$ref": "#/$defs/common/azureCliVersion"
+                },
+                "name": {
+                  "$ref": "#/$defs/deploymentStack/name"
+                },
+                "actionOnUnmanage": {
+                  "$ref": "#/$defs/deploymentStack/actionOnUnmanage"
+                },
+                "bypassStackOutOfSyncError": {
+                  "$ref": "#/$defs/deploymentStack/bypassStackOutOfSyncError"
+                },
+                "denySettings": {
+                  "$ref": "#/$defs/deploymentStack/denySettings"
+                },
+                "deploymentResourceGroup": {
+                  "$ref": "#/$defs/deploymentStack/deploymentResourceGroup"
+                },
+                "description": {
+                  "$ref": "#/$defs/deploymentStack/description"
+                },
+                "location": {
+                  "$ref": "#/$defs/deploymentStack/location"
+                },
+                "tags": {
+                  "$ref": "#/$defs/deploymentStack/tags"
+                }
+              }
+            },
+            "else": false
+          },
+          {
+            "$comment": "Deployment Stack - Management Group scope",
+            "if": {
+              "properties": {
+                "scope": {
+                  "const": "managementGroup"
+                }
+              }
+            },
+            "then": {
+              "description": "The schema for Deployment Stacks scoped to a Management Group",
+              "type": "object",
+              "required": [
+                "name",
+                "managementGroupId",
+                "actionOnUnmanage",
+                "denySettings"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "type": {
+                  "const": "deploymentStack"
+                },
+                "scope": {
+                  "const": "managementGroup"
+                },
+                "$schema": {
+                  "$ref": "#/$defs/common/$schema"
+                },
+                "disabled": {
+                  "$ref": "#/$defs/common/disabled"
+                },
+                "triggers": {
+                  "$ref": "#/$defs/common/triggers"
+                },
+                "azureCliVersion": {
+                  "$ref": "#/$defs/common/azureCliVersion"
+                },
+                "name": {
+                  "$ref": "#/$defs/deploymentStack/name"
+                },
+                "managementGroupId": {
+                  "$ref": "#/$defs/deploymentStack/managementGroupId"
+                },
+                "actionOnUnmanage": {
+                  "$ref": "#/$defs/deploymentStack/actionOnUnmanage"
+                },
+                "bypassStackOutOfSyncError": {
+                  "$ref": "#/$defs/deploymentStack/bypassStackOutOfSyncError"
+                },
+                "denySettings": {
+                  "$ref": "#/$defs/deploymentStack/denySettings"
+                },
+                "deploymentSubscription": {
+                  "$ref": "#/$defs/deploymentStack/deploymentSubscription"
+                },
+                "description": {
+                  "$ref": "#/$defs/deploymentStack/description"
+                },
+                "location": {
+                  "$ref": "#/$defs/deploymentStack/location"
+                },
+                "tags": {
+                  "$ref": "#/$defs/deploymentStack/tags"
+                }
+              }
+            },
+            "else": false
+          }
+        ]
+      },
+      "else": false
+    }
+  ],
+  "$defs": {
+    "common": {
+      "$schema": {
+        "type": "string",
+        "description": "The schema to verify this document against.",
+        "format": "uri-reference"
+      },
+      "type": {
+        "type": "string",
+        "description": "Specifies the execution type.",
+        "enum": [
+          "deployment",
+          "deploymentStack"
+        ],
+        "default": "deployment"
+      },
+      "scope": {
+        "type": "string",
+        "description": "Specifies the scope of the deployment or deploymentStack.",
+        "enum": [
+          "resourceGroup",
+          "subscription",
+          "managementGroup",
+          "tenant"
+        ],
+        "default": "subscription"
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "Setting this to true disables the deployment regardless of the triggering event."
+      },
+      "triggers": {
+        "type": "object",
+        "description": "Configuration to apply for specific triggers in GitHub.",
+        "propertyNames": {
+          "enum": [
+            "workflow_dispatch",
+            "schedule",
+            "pull_request_target",
+            "push"
+          ]
+        },
+        "additionalProperties": false,
+        "patternProperties": {
+          ".*": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "disabled": {
+                "type": "boolean",
+                "description": "Setting this to true disables the deployment when triggered from this specific triggering event."
+              }
             }
           }
         }
+      },
+      "azureCliVersion": {
+        "type": "string",
+        "description": "The Azure CLI version to use.",
+        "format": "regex",
+        "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
       }
     },
-    "name": {
-      "type": "string",
-      "description": "The name of the deployment. This is the name in the 'Deployments' panel in the Azure portal."
+    "deployment": {
+      "name": {
+        "type": "string",
+        "description": "The deployment name."
+      },
+      "location": {
+        "type": "string",
+        "description": "The location to store the deployment metadata. This is optional and will use an organization default if not specified.",
+        "minLength": 1
+      },
+      "resourceGroupName": {
+        "type": "string",
+        "description": "Name of resource group.",
+        "minLength": 1,
+        "maxLength": 90
+      },
+      "managementGroupId": {
+        "type": "string",
+        "description": "The management group id.",
+        "minLength": 1,
+        "maxLength": 90
+      }
     },
-    "location": {
-      "type": "string",
-      "description": "The location for the deployment. This is optional has an organization default if not specified. This property is valid for Tenant, Management Group and Subscription scoped deployments.",
-      "minLength": 1
-    },
-    "resourceGroupName": {
-      "type": "string",
-      "description": "The target Resource Group Name for the deployment. This property is only valid in Resource Group scoped deployments.",
-      "minLength": 1,
-      "maxLength": 90
-    },
-    "managementGroupId": {
-      "type": "string",
-      "description": "The target Management Group Name for the deployment. This property is only valid in Management Group scoped deployments.",
-      "minLength": 1,
-      "maxLength": 90
-    },
-    "azureCliVersion": {
-      "type": "string",
-      "format": "regex",
-      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+    "deploymentStack": {
+      "name": {
+        "type": "string",
+        "description": "The name of the deployment stack."
+      },
+      "location": {
+        "type": "string",
+        "description": "The location to store deployment stack. This is optional and will use an organization default if not specified.",
+        "minLength": 1
+      },
+      "resourceGroupName": {
+        "type": "string",
+        "description": "The resource group where the deployment stack will be created.",
+        "minLength": 1,
+        "maxLength": 90
+      },
+      "managementGroupId": {
+        "type": "string",
+        "description": "The management group id to create stack at.",
+        "minLength": 1,
+        "maxLength": 90
+      },
+      "deploymentResourceGroup": {
+        "type": "string",
+        "description": "The scope at which the initial deployment should be created. If a scope is not specified, it will default to the scope of the deployment stack."
+      },
+      "deploymentSubscription": {
+        "type": "string",
+        "description": "The scope at which the initial deployment should be created. If a scope is not specified, it will default to the scope of the deployment stack."
+      },
+      "actionOnUnmanage": {
+        "type": "object",
+        "description": "Defines the behavior of resources that are not managed immediately after the stack is updated.",
+        "additionalProperties": false,
+        "required": [
+          "resources"
+        ],
+        "properties": {
+          "resources": {
+            "type": "string",
+            "description": "Specifies the action that should be taken on the resource when the deployment stack is deleted. Delete will attempt to delete the resource from Azure. Detach will leave the resource in it's current state.",
+            "enum": [
+              "delete",
+              "detach"
+            ]
+          },
+          "resourceGroups": {
+            "type": "string",
+            "description": "Specifies the action that should be taken on the resource when the deployment stack is deleted. Delete will attempt to delete the resource from Azure. Detach will leave the resource in it's current state.",
+            "enum": [
+              "delete",
+              "detach"
+            ]
+          },
+          "managementGroups": {
+            "type": "string",
+            "description": "Specifies the action that should be taken on the resource when the deployment stack is deleted. Delete will attempt to delete the resource from Azure. Detach will leave the resource in it's current state.",
+            "enum": [
+              "delete",
+              "detach"
+            ]
+          }
+        }
+      },
+      "bypassStackOutOfSyncError": {
+        "type": "boolean",
+        "description": "Flag to bypass service errors that indicate the stack resource list is not correctly synchronized. Default 'false'.",
+        "default": false
+      },
+      "denySettings": {
+        "type": "object",
+        "description": "Defines how resources deployed by the stack are locked.",
+        "required": [],
+        "additionalProperties": false,
+        "properties": {
+          "applyToChildScopes": {
+            "type": "boolean",
+            "description": "DenySettings will be applied to child scopes. Default: 'false'.",
+            "default": false
+          },
+          "excludedActions": {
+            "type": "array",
+            "description": "List of role-based management operations that are excluded from the denySettings. Up to 200 actions are permitted. If the denySetting mode is set to 'denyWriteAndDelete', then the following actions are automatically appended to 'excludedActions': '*/read' and 'Microsoft.Authorization/locks/delete'. If the denySetting mode is set to 'denyDelete', then the following actions are automatically appended to 'excludedActions': 'Microsoft.Authorization/locks/delete'. Duplicate actions will be removed.",
+            "maxLength": 200,
+            "items": {
+              "type": "string"
+            }
+          },
+          "excludedPrincipals": {
+            "type": "array",
+            "description": "List of AAD principal IDs excluded from the lock. Up to 5 principals are permitted.",
+            "maxLength": 5,
+            "items": {
+              "type": "string"
+            }
+          },
+          "mode": {
+            "anyOf": [
+              {
+                "type": "string",
+                "const": "denyDelete",
+                "description": "Authorized users are able to read and modify the resources, but cannot delete."
+              },
+              {
+                "type": "string",
+                "const": "denyWriteAndDelete",
+                "description": "Authorized users can only read from a resource, but cannot modify or delete it."
+              },
+              {
+                "type": "string",
+                "const": "none",
+                "description": "No denyAssignments have been applied."
+              }
+            ]
+          }
+        }
+      },
+      "description": {
+        "type": "string",
+        "description": "Deployment stack description."
+      },
+      "tags": {
+        "type": "object",
+        "description": "Deployment stack resource tags. Key=value format."
+      }
     }
   }
 }
