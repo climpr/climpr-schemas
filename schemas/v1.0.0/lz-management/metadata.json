@@ -75,51 +75,87 @@
                 "required": [
                   "archetype",
                   "subscriptionName",
-                  "parentManagementGroupId"
+                  "parentManagementGroupId",
+                  "billingProfileDisplayName",
+                  "invoiceSectionDisplayName"
                 ],
                 "additionalProperties": false,
                 "properties": {
                   "decommissioned": {
-                    "type": "boolean",
-                    "description": "Setting this to true will decommission the Azure subscription."
+                    "$ref": "#/$defs/azure/decommissioned"
                   },
                   "archetype": {
-                    "type": "string",
-                    "not": {
-                      "const": "no-lz"
-                    }
+                    "$ref": "#/$defs/azure/archetype"
                   },
                   "subscriptionName": {
-                    "type": "string"
+                    "$ref": "#/$defs/azure/subscriptionName"
                   },
                   "subscriptionId": {
-                    "type": "string"
+                    "$ref": "#/$defs/azure/subscriptionId"
                   },
                   "parentManagementGroupId": {
-                    "type": "string"
+                    "$ref": "#/$defs/azure/parentManagementGroupId"
                   },
                   "billingProfileDisplayName": {
-                    "type": "string"
+                    "$ref": "#/$defs/azure/billingProfileDisplayName"
                   },
                   "invoiceSectionDisplayName": {
-                    "type": "string"
+                    "$ref": "#/$defs/azure/invoiceSectionDisplayName"
                   }
                 }
               },
               {
                 "required": [
                   "archetype",
-                  "deploymentSubscriptionId"
+                  "subscriptionName",
+                  "parentManagementGroupId",
+                  "billingScope"
                 ],
                 "additionalProperties": false,
                 "properties": {
-                  "archetype": {
-                    "type": "string",
-                    "const": "no-lz"
+                  "decommissioned": {
+                    "$ref": "#/$defs/azure/decommissioned"
                   },
-                  "deploymentSubscriptionId": {
-                    "type": "string",
-                    "format": "uuid"
+                  "archetype": {
+                    "$ref": "#/$defs/azure/archetype"
+                  },
+                  "subscriptionName": {
+                    "$ref": "#/$defs/azure/subscriptionName"
+                  },
+                  "subscriptionId": {
+                    "$ref": "#/$defs/azure/subscriptionId"
+                  },
+                  "parentManagementGroupId": {
+                    "$ref": "#/$defs/azure/parentManagementGroupId"
+                  },
+                  "billingScope": {
+                    "$ref": "#/$defs/azure/billingScope"
+                  }
+                }
+              },
+              {
+                "required": [
+                  "archetype",
+                  "subscriptionName",
+                  "parentManagementGroupId",
+                  "subscriptionId"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "decommissioned": {
+                    "$ref": "#/$defs/azure/decommissioned"
+                  },
+                  "archetype": {
+                    "$ref": "#/$defs/azure/archetype"
+                  },
+                  "subscriptionName": {
+                    "$ref": "#/$defs/azure/subscriptionName"
+                  },
+                  "subscriptionId": {
+                    "$ref": "#/$defs/azure/subscriptionId"
+                  },
+                  "parentManagementGroupId": {
+                    "$ref": "#/$defs/azure/parentManagementGroupId"
                   }
                 }
               }
@@ -130,6 +166,40 @@
     }
   },
   "$defs": {
+    "azure": {
+      "decommissioned": {
+        "type": "boolean",
+        "description": "Setting this to true will decommission the Azure subscription."
+      },
+      "archetype": {
+        "type": "string",
+        "description": "The archetype for the Landing Zone."
+      },
+      "subscriptionName": {
+        "type": "string",
+        "description": "The display name for the Landing Zone."
+      },
+      "subscriptionId": {
+        "type": "string",
+        "description": "The subscription id for the subscription."
+      },
+      "parentManagementGroupId": {
+        "type": "string",
+        "description": "The Management Group Id for the parent Management Group."
+      },
+      "billingScope": {
+        "type": "string",
+        "description": "The Billing Scope for the subscription."
+      },
+      "billingProfileDisplayName": {
+        "type": "string",
+        "description": "The name of the Billing Profile for the subscription."
+      },
+      "invoiceSectionDisplayName": {
+        "type": "string",
+        "description": "The name of the Invoice Section for the subscription."
+      }
+    },
     "repoSource": {
       "type": "object",
       "description": "Properties related to the 'update-landing-zone-repositories' feature.",
