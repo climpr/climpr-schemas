@@ -57,6 +57,9 @@
                 "azureCliVersion": {
                   "$ref": "#/$defs/common/azureCliVersion"
                 },
+                "extensions": {
+                  "$ref": "#/$defs/common/extensions"
+                },
                 "name": {
                   "$ref": "#/$defs/deployment/name"
                 },
@@ -99,6 +102,9 @@
                 },
                 "azureCliVersion": {
                   "$ref": "#/$defs/common/azureCliVersion"
+                },
+                "extensions": {
+                  "$ref": "#/$defs/common/extensions"
                 },
                 "name": {
                   "$ref": "#/$defs/deployment/name"
@@ -144,6 +150,9 @@
                 },
                 "azureCliVersion": {
                   "$ref": "#/$defs/common/azureCliVersion"
+                },
+                "extensions": {
+                  "$ref": "#/$defs/common/extensions"
                 },
                 "name": {
                   "$ref": "#/$defs/deployment/name"
@@ -192,6 +201,9 @@
                 },
                 "azureCliVersion": {
                   "$ref": "#/$defs/common/azureCliVersion"
+                },
+                "extensions": {
+                  "$ref": "#/$defs/common/extensions"
                 },
                 "name": {
                   "$ref": "#/$defs/deployment/name"
@@ -259,6 +271,9 @@
                 "azureCliVersion": {
                   "$ref": "#/$defs/common/azureCliVersion"
                 },
+                "extensions": {
+                  "$ref": "#/$defs/common/extensions"
+                },
                 "name": {
                   "$ref": "#/$defs/deploymentStack/name"
                 },
@@ -320,6 +335,9 @@
                 },
                 "azureCliVersion": {
                   "$ref": "#/$defs/common/azureCliVersion"
+                },
+                "extensions": {
+                  "$ref": "#/$defs/common/extensions"
                 },
                 "name": {
                   "$ref": "#/$defs/deploymentStack/name"
@@ -386,6 +404,9 @@
                 },
                 "azureCliVersion": {
                   "$ref": "#/$defs/common/azureCliVersion"
+                },
+                "extensions": {
+                  "$ref": "#/$defs/common/extensions"
                 },
                 "name": {
                   "$ref": "#/$defs/deploymentStack/name"
@@ -484,6 +505,21 @@
         "description": "The Azure CLI version to use.",
         "format": "regex",
         "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+      },
+      "extensions": {
+        "type": "object",
+        "description": "Extensions.",
+        "propertyNames": {
+          "enum": [
+            "vmShutdown"
+          ]
+        },
+        "additionalProperties": false,
+        "patternProperties": {
+          "vmShutdown": {
+            "$ref": "#/$defs/extensions/vmShutdownExtension"
+          }
+        }
       }
     },
     "deployment": {
@@ -633,6 +669,65 @@
       "tags": {
         "type": "object",
         "description": "Deployment stack resource tags. Key=value format."
+      }
+    },
+    "extensions": {
+      "vmShutdownExtension": {
+        "type": "object",
+        "oneOf": [
+          {
+            "required": [
+              "resourceIds"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "resourceIds": {
+                "type": "array",
+                "description": "A list of Azure resource ids of the Virtual Machines to start before running the deployment.",
+                "items": {
+                  "type": "string",
+                  "description": "The Azure resource id of the Virtual Machine.",
+                  "pattern": "^\\/subscriptions\\/.+?\\/resourceGroups\\/.+?\\/providers\\/Microsoft\\.Compute\\/virtualMachines\\/[^~!@#$%^&*()=+_[\\]{}\\|;:.'\",<>\/?]{1,64}$"
+                }
+              }
+            }
+          },
+          {
+            "required": [
+              "resourceGroups"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "resourceGroups": {
+                "type": "array",
+                "description": "A list of resource groups to use for specifying the Virtual Machines to start before running the deployment.",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "virtualMachineNames"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the resource group."
+                    },
+                    "virtualMachineNames": {
+                      "type": "array",
+                      "description": "A list of names of the Virtual Machines to start before running the deployment.",
+                      "items": {
+                        "type": "string",
+                        "description": "The name of the Virtual Machine.",
+                        "pattern": "^[^\\s~!@#$%^&*()=+_[\\]{}\\|;:.'\",<>\/?]{1,64}$"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
       }
     }
   }
