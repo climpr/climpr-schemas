@@ -35,7 +35,6 @@
       "description": "All properties associated to the repository creation and configuration for workload repositories.",
       "required": [
         "access",
-        "branchPolicyPatterns",
         "branchProtection",
         "codeOwners",
         "runProtection"
