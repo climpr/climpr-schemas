@@ -66,240 +66,287 @@
       }
     },
     "branchProtection": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "required_status_checks",
-        "enforce_admins",
-        "required_pull_request_reviews",
-        "restrictions"
-      ],
-      "properties": {
-        "required_status_checks": {
-          "type": [
-            "object",
-            "null"
-          ],
-          "required": [
-            "strict",
-            "contexts"
-          ],
+      "oneOf": [
+        {
+          "const": "default"
+        },
+        {
+          "const": "ignore"
+        },
+        {
+          "type": "object",
+          "default": {},
           "additionalProperties": false,
+          "required": [
+            "required_status_checks",
+            "enforce_admins",
+            "required_pull_request_reviews",
+            "restrictions"
+          ],
           "properties": {
-            "strict": {
-              "type": "boolean"
-            },
-            "contexts": {
-              "type": "array",
-              "items": {
-                "type": "string"
+            "required_status_checks": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "required": [
+                "strict",
+                "contexts"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "strict": {
+                  "type": "boolean"
+                },
+                "contexts": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "checks": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "context"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "context": {
+                        "type": "string"
+                      },
+                      "app_id": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
               }
             },
-            "checks": {
+            "enforce_admins": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "required_pull_request_reviews": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "dismissal_restrictions": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "users": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "teams": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "apps": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "dismiss_stale_reviews": {
+                  "type": "boolean"
+                },
+                "require_code_owner_reviews": {
+                  "type": "boolean"
+                },
+                "required_approving_review_count": {
+                  "type": "integer"
+                },
+                "require_last_push_approval": {
+                  "type": "boolean"
+                },
+                "bypass_pull_request_allowances": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "users": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "teams": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "apps": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "restrictions": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "required": [
+                "users",
+                "teams"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "users": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "teams": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "apps": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "required_linear_history": {
+              "type": "boolean"
+            },
+            "allow_force_pushes": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "allow_deletions": {
+              "type": "boolean"
+            },
+            "block_creations": {
+              "type": "boolean"
+            },
+            "required_conversation_resolution": {
+              "type": "boolean"
+            },
+            "lock_branch": {
+              "type": "boolean"
+            },
+            "allow_fork_syncing": {
+              "type": "boolean"
+            }
+          }
+        }
+      ]
+    },
+    "codeOwners": {
+      "oneOf": [
+        {
+          "const": "default"
+        },
+        {
+          "const": "ignore"
+        },
+        {
+          "type": "array",
+          "additionalProperties": false,
+          "items": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "runProtection": {
+      "oneOf": [
+        {
+          "const": "default"
+        },
+        {
+          "const": "ignore"
+        },
+        {
+          "type": "object",
+          "default": {},
+          "additionalProperties": false,
+          "properties": {
+            "wait_timer": {
+              "type": "integer"
+            },
+            "prevent_self_review": {
+              "type": "boolean"
+            },
+            "reviewers": {
               "type": "array",
               "items": {
                 "type": "object",
-                "required": [
-                  "context"
-                ],
                 "additionalProperties": false,
                 "properties": {
-                  "context": {
-                    "type": "string"
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "User",
+                      "Team"
+                    ]
                   },
-                  "app_id": {
+                  "id": {
                     "type": "integer"
                   }
                 }
               }
-            }
-          }
-        },
-        "enforce_admins": {
-          "type": [
-            "boolean",
-            "null"
-          ]
-        },
-        "required_pull_request_reviews": {
-          "type": [
-            "object",
-            "null"
-          ],
-          "additionalProperties": false,
-          "properties": {
-            "dismissal_restrictions": {
+            },
+            "deployment_branch_policy": {
               "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "users": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
+              "required": [
+                "protected_branches",
+                "custom_branch_policies"
+              ],
+              "oneOf": [
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "protected_branches": {
+                      "const": true
+                    },
+                    "custom_branch_policies": {
+                      "const": false
+                    }
                   }
                 },
-                "teams": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "apps": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "protected_branches": {
+                      "const": false
+                    },
+                    "custom_branch_policies": {
+                      "const": true
+                    }
                   }
                 }
-              }
-            },
-            "dismiss_stale_reviews": {
-              "type": "boolean"
-            },
-            "require_code_owner_reviews": {
-              "type": "boolean"
-            },
-            "required_approving_review_count": {
-              "type": "integer"
-            },
-            "require_last_push_approval": {
-              "type": "boolean"
-            },
-            "bypass_pull_request_allowances": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "users": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "teams": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "apps": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "restrictions": {
-          "type": [
-            "object",
-            "null"
-          ],
-          "required": [
-            "users",
-            "teams"
-          ],
-          "additionalProperties": false,
-          "properties": {
-            "users": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "teams": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "apps": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "required_linear_history": {
-          "type": "boolean"
-        },
-        "allow_force_pushes": {
-          "type": [
-            "boolean",
-            "null"
-          ]
-        },
-        "allow_deletions": {
-          "type": "boolean"
-        },
-        "block_creations": {
-          "type": "boolean"
-        },
-        "required_conversation_resolution": {
-          "type": "boolean"
-        },
-        "lock_branch": {
-          "type": "boolean"
-        },
-        "allow_fork_syncing": {
-          "type": "boolean"
-        }
-      }
-    },
-    "codeOwners": {
-      "type": "array",
-      "additionalProperties": false,
-      "items": {
-        "type": "string"
-      }
-    },
-    "runProtection": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "wait_timer": {
-          "type": "integer"
-        },
-        "prevent_self_review": {
-          "type": "boolean"
-        },
-        "reviewers": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "type": {
-                "type": "string",
-                "enum": [
-                  "User",
-                  "Team"
-                ]
-              },
-              "id": {
-                "type": "integer"
-              }
-            }
-          }
-        },
-        "deployment_branch_policy": {
-          "type": "object",
-          "required": [
-            "protected_branches",
-            "custom_branch_policies"
-          ],
-          "additionalProperties": false,
-          "properties": {
-            "protected_branches": {
-              "type": "boolean"
-            },
-            "custom_branch_policies": {
-              "type": "boolean"
+              ]
             }
           }
         }
-      }
+      ]
     }
   }
 }
