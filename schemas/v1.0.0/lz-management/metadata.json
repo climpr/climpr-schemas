@@ -180,7 +180,7 @@
         "description": "The display name for the Landing Zone.\nMust start with a letter and can contain letters, numbers, hyphens, and underscores.\nMinimum length: 1, Maximum length: 50",
         "minLength": 1,
         "maxLength": 50,
-        "pattern": "^[A-Za-z][A-Za-z0-9-_]*$"
+        "pattern": "^[A-Za-z][A-Za-z0-9-_\\s]*$"
       },
       "subscriptionId": {
         "type": "string",
