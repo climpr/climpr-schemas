@@ -173,23 +173,41 @@
       },
       "archetype": {
         "type": "string",
-        "description": "The archetype for the Landing Zone."
+        "description": "The archetype for the Landing Zone. Typically 'corp' or 'online'."
       },
       "subscriptionName": {
         "type": "string",
-        "description": "The display name for the Landing Zone."
+        "description": "The display name for the Landing Zone.\nMust start with a letter and can contain letters, numbers, hyphens, and underscores.\nMinimum length: 1, Maximum length: 50",
+        "minLength": 1,
+        "maxLength": 50,
+        "pattern": "^[A-Za-z][A-Za-z0-9-_]*$"
       },
       "subscriptionId": {
         "type": "string",
-        "description": "The subscription id for the subscription."
+        "description": "The subscription id for the subscription. Must be a GUID.",
+        "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
       },
       "parentManagementGroupId": {
         "type": "string",
-        "description": "The Management Group Id for the parent Management Group."
+        "description": "The Management Group Id for the parent Management Group.\nMust start and end with a letter, number, or closing parenthesis. Can contain letters, numbers, hyphens, underscores, periods, and parentheses in between.\nMinimum length: 1, Maximum length: 90",
+        "minLength": 1,
+        "maxLength": 90,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9-_().]*[A-Za-z0-9)]$"
       },
       "billingScope": {
         "type": "string",
-        "description": "The Billing Scope for the subscription."
+        "description": "The Billing Scope resource id for the subscription. Must be a valid billing scope in one of the formats below:\n/providers/Microsoft.Billing/enrollmentAccounts/{enrollmentAccountId}\n/providers/Microsoft.Billing/departments/{departmentId}\n/providers/Microsoft.Billing/accounts/{accountId}\n/subscriptions/{subscriptionGuid}\n/providers/Microsoft.Billing/billingAccounts/{billingAccountId}\n/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}\n/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}/invoiceSections/{invoiceSectionId}\n/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/customers/{customerId}",
+        "oneOf": [
+          {
+            "pattern": "^/providers/Microsoft\\.Billing/(enrollmentAccounts|departments|accounts)/[a-zA-Z0-9]+$|^/subscriptions/[0-9a-fA-F-]{36}$"
+          },
+          {
+            "pattern": "^/providers/Microsoft\\.Billing/billingAccounts/[a-zA-Z0-9-]+(/billingProfiles/[a-zA-Z0-9-]+(/invoiceSections/[a-zA-Z0-9-]+)?)?$|^/subscriptions/[0-9a-fA-F-]{36}$"
+          },
+          {
+            "pattern": "^/providers/Microsoft\\.Billing/billingAccounts/[a-zA-Z0-9-]+(/customers/[a-zA-Z0-9-]+)?$|^/subscriptions/[0-9a-fA-F-]{36}$"
+          }
+        ]
       },
       "billingProfileDisplayName": {
         "type": "string",
