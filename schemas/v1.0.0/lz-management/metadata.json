@@ -196,16 +196,16 @@
       },
       "billingScope": {
         "type": "string",
-        "description": "The Billing Scope resource id for the subscription. Must be a valid billing scope in one of the formats below:\n/providers/Microsoft.Billing/enrollmentAccounts/{enrollmentAccountId}\n/providers/Microsoft.Billing/departments/{departmentId}\n/providers/Microsoft.Billing/accounts/{accountId}\n/subscriptions/{subscriptionGuid}\n/providers/Microsoft.Billing/billingAccounts/{billingAccountId}\n/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}\n/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}/invoiceSections/{invoiceSectionId}\n/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/customers/{customerId}",
+        "description": "The Billing Scope resource ID for the subscription. Must be a valid billing scope in one of the formats below:\n/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/enrollmentAccounts/{enrollmentAccountId}\n/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}/invoiceSections/{invoiceSectionId}\n/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/customers/{customerId}",
         "oneOf": [
           {
-            "pattern": "^/providers/Microsoft\\.Billing/(enrollmentAccounts|departments|accounts)/[a-zA-Z0-9]+$|^/subscriptions/[0-9a-fA-F-]{36}$"
+            "pattern": "^\\/providers\\/Microsoft\\.Billing\\/billingAccounts\\/[a-zA-Z0-9-]+\\/enrollmentAccounts\\/[a-zA-Z0-9-]+$"
           },
           {
-            "pattern": "^/providers/Microsoft\\.Billing/billingAccounts/[a-zA-Z0-9-]+(/billingProfiles/[a-zA-Z0-9-]+(/invoiceSections/[a-zA-Z0-9-]+)?)?$|^/subscriptions/[0-9a-fA-F-]{36}$"
+            "pattern": "^\\/providers\\/Microsoft\\.Billing\\/billingAccounts\\/[a-zA-Z0-9-]+\\/billingProfiles\\/[a-zA-Z0-9-]+\\/invoiceSections\\/[a-zA-Z0-9-]+$"
           },
           {
-            "pattern": "^/providers/Microsoft\\.Billing/billingAccounts/[a-zA-Z0-9-]+(/customers/[a-zA-Z0-9-]+)?$|^/subscriptions/[0-9a-fA-F-]{36}$"
+            "pattern": "^\\/providers\\/Microsoft\\.Billing\\/billingAccounts\\/[a-zA-Z0-9-]+\\/customers\\/[a-zA-Z0-9-]+$"
           }
         ]
       },
