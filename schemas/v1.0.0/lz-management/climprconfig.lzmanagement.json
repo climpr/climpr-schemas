@@ -9,7 +9,8 @@
     "rootManagementGroupId",
     "decommissionedManagementGroupId",
     "billingAccountDisplayName",
-    "gitWorkloadRepository"
+    "gitWorkloadRepository",
+    "defaultResourceProviders"
   ],
   "additionalProperties": false,
   "properties": {
@@ -142,6 +143,17 @@
         },
         "runProtection": {
           "$ref": "github-api.json#/$defs/runProtection"
+        }
+      }
+    },
+    "defaultResourceProviders": {
+      "type": "object",
+      "patternProperties": {
+        ".*": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     }
