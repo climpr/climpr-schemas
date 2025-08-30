@@ -9,13 +9,14 @@
     "rootManagementGroupId",
     "decommissionedManagementGroupId",
     "billingAccountDisplayName",
-    "gitWorkloadRepository"
+    "gitWorkloadRepository",
+    "defaultResourceProviders"
   ],
   "additionalProperties": false,
   "properties": {
     "defaultLocation": {
       "type": "string",
-      "description": "The default location for for all deployment functions.",
+      "description": "The default location for all deployment functions.",
       "default": "westeurope"
     },
     "rootManagementGroupId": {
@@ -142,6 +143,18 @@
         },
         "runProtection": {
           "$ref": "github-api.json#/$defs/runProtection"
+        }
+      }
+    },
+    "defaultResourceProviders": {
+      "type": "object",
+      "description": "The resource providers and features to be enabled for all landing zones.",
+      "patternProperties": {
+        ".*": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     }
