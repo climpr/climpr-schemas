@@ -16,7 +16,7 @@
   "properties": {
     "defaultLocation": {
       "type": "string",
-      "description": "The default location for for all deployment functions.",
+      "description": "The default location for all deployment functions.",
       "default": "westeurope"
     },
     "rootManagementGroupId": {
@@ -148,6 +148,7 @@
     },
     "defaultResourceProviders": {
       "type": "object",
+      "description": "The resource providers and features to be enabled for all landing zones.",
       "patternProperties": {
         ".*": {
           "type": "array",
