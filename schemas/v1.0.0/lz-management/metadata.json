@@ -68,6 +68,12 @@
           "branchPolicyPatterns": {
             "$ref": "github-api.json#/$defs/branchPolicyPatterns"
           },
+          "variables": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
           "azure": {
             "type": "object",
             "oneOf": [
