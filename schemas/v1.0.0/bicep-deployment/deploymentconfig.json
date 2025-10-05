@@ -55,6 +55,9 @@
                 "azureCliVersion": {
                   "$ref": "#/$defs/common/azureCliVersion"
                 },
+                "bicepVersion": {
+                  "$ref": "#/$defs/common/bicepVersion"
+                },
                 "name": {
                   "$ref": "#/$defs/deployment/name"
                 },
@@ -98,6 +101,9 @@
                 "azureCliVersion": {
                   "$ref": "#/$defs/common/azureCliVersion"
                 },
+                "bicepVersion": {
+                  "$ref": "#/$defs/common/bicepVersion"
+                },
                 "name": {
                   "$ref": "#/$defs/deployment/name"
                 },
@@ -140,6 +146,9 @@
                 },
                 "azureCliVersion": {
                   "$ref": "#/$defs/common/azureCliVersion"
+                },
+                "bicepVersion": {
+                  "$ref": "#/$defs/common/bicepVersion"
                 },
                 "name": {
                   "$ref": "#/$defs/deployment/name"
@@ -186,6 +195,9 @@
                 },
                 "azureCliVersion": {
                   "$ref": "#/$defs/common/azureCliVersion"
+                },
+                "bicepVersion": {
+                  "$ref": "#/$defs/common/bicepVersion"
                 },
                 "name": {
                   "$ref": "#/$defs/deployment/name"
@@ -251,6 +263,9 @@
                 "azureCliVersion": {
                   "$ref": "#/$defs/common/azureCliVersion"
                 },
+                "bicepVersion": {
+                  "$ref": "#/$defs/common/bicepVersion"
+                },
                 "name": {
                   "$ref": "#/$defs/deploymentStack/name"
                 },
@@ -308,6 +323,9 @@
                 },
                 "azureCliVersion": {
                   "$ref": "#/$defs/common/azureCliVersion"
+                },
+                "bicepVersion": {
+                  "$ref": "#/$defs/common/bicepVersion"
                 },
                 "name": {
                   "$ref": "#/$defs/deploymentStack/name"
@@ -374,6 +392,9 @@
                 },
                 "azureCliVersion": {
                   "$ref": "#/$defs/common/azureCliVersion"
+                },
+                "bicepVersion": {
+                  "$ref": "#/$defs/common/bicepVersion"
                 },
                 "name": {
                   "$ref": "#/$defs/deploymentStack/name"
@@ -469,6 +490,19 @@
           {
             "format": "regex",
             "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+          }
+        ]
+      },
+      "bicepVersion": {
+        "type": "string",
+        "description": "The Bicep version to use.",
+        "oneOf": [
+          {
+            "const": "latest"
+          },
+          {
+            "format": "regex",
+            "pattern": "^v(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
           }
         ]
       }
