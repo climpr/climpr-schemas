@@ -34,9 +34,7 @@
             "then": {
               "description": "The schema for Bicep deployments scoped to a Resource Group",
               "type": "object",
-              "required": [
-                "resourceGroupName"
-              ],
+              "required": ["resourceGroupName"],
               "additionalProperties": false,
               "properties": {
                 "type": {
@@ -56,6 +54,9 @@
                 },
                 "azureCliVersion": {
                   "$ref": "#/$defs/common/azureCliVersion"
+                },
+                "bicepVersion": {
+                  "$ref": "#/$defs/common/bicepVersion"
                 },
                 "name": {
                   "$ref": "#/$defs/deployment/name"
@@ -100,6 +101,9 @@
                 "azureCliVersion": {
                   "$ref": "#/$defs/common/azureCliVersion"
                 },
+                "bicepVersion": {
+                  "$ref": "#/$defs/common/bicepVersion"
+                },
                 "name": {
                   "$ref": "#/$defs/deployment/name"
                 },
@@ -122,9 +126,7 @@
             "then": {
               "description": "The schema for Bicep deployments scoped to a Management Group",
               "type": "object",
-              "required": [
-                "managementGroupId"
-              ],
+              "required": ["managementGroupId"],
               "additionalProperties": false,
               "properties": {
                 "type": {
@@ -144,6 +146,9 @@
                 },
                 "azureCliVersion": {
                   "$ref": "#/$defs/common/azureCliVersion"
+                },
+                "bicepVersion": {
+                  "$ref": "#/$defs/common/bicepVersion"
                 },
                 "name": {
                   "$ref": "#/$defs/deployment/name"
@@ -170,9 +175,7 @@
             "then": {
               "description": "The schema for Bicep deployments scoped to a Tenant",
               "type": "object",
-              "required": [
-                "scope"
-              ],
+              "required": ["scope"],
               "additionalProperties": false,
               "properties": {
                 "type": {
@@ -192,6 +195,9 @@
                 },
                 "azureCliVersion": {
                   "$ref": "#/$defs/common/azureCliVersion"
+                },
+                "bicepVersion": {
+                  "$ref": "#/$defs/common/bicepVersion"
                 },
                 "name": {
                   "$ref": "#/$defs/deployment/name"
@@ -217,9 +223,7 @@
         }
       },
       "then": {
-        "required": [
-          "type"
-        ],
+        "required": ["type"],
         "oneOf": [
           {
             "$comment": "Deployment Stack - Resource Group scope",
@@ -259,6 +263,9 @@
                 "azureCliVersion": {
                   "$ref": "#/$defs/common/azureCliVersion"
                 },
+                "bicepVersion": {
+                  "$ref": "#/$defs/common/bicepVersion"
+                },
                 "name": {
                   "$ref": "#/$defs/deploymentStack/name"
                 },
@@ -296,11 +303,7 @@
             "then": {
               "description": "The schema for Deployment Stacks scoped to a Subscription",
               "type": "object",
-              "required": [
-                "name",
-                "actionOnUnmanage",
-                "denySettings"
-              ],
+              "required": ["name", "actionOnUnmanage", "denySettings"],
               "additionalProperties": false,
               "properties": {
                 "type": {
@@ -320,6 +323,9 @@
                 },
                 "azureCliVersion": {
                   "$ref": "#/$defs/common/azureCliVersion"
+                },
+                "bicepVersion": {
+                  "$ref": "#/$defs/common/bicepVersion"
                 },
                 "name": {
                   "$ref": "#/$defs/deploymentStack/name"
@@ -387,6 +393,9 @@
                 "azureCliVersion": {
                   "$ref": "#/$defs/common/azureCliVersion"
                 },
+                "bicepVersion": {
+                  "$ref": "#/$defs/common/bicepVersion"
+                },
                 "name": {
                   "$ref": "#/$defs/deploymentStack/name"
                 },
@@ -433,21 +442,13 @@
       "type": {
         "type": "string",
         "description": "Specifies the execution type.",
-        "enum": [
-          "deployment",
-          "deploymentStack"
-        ],
+        "enum": ["deployment", "deploymentStack"],
         "default": "deployment"
       },
       "scope": {
         "type": "string",
         "description": "Specifies the scope of the deployment or deploymentStack.",
-        "enum": [
-          "resourceGroup",
-          "subscription",
-          "managementGroup",
-          "tenant"
-        ],
+        "enum": ["resourceGroup", "subscription", "managementGroup", "tenant"],
         "default": "subscription"
       },
       "disabled": {
@@ -482,8 +483,28 @@
       "azureCliVersion": {
         "type": "string",
         "description": "The Azure CLI version to use.",
-        "format": "regex",
-        "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+        "oneOf": [
+          {
+            "const": "latest"
+          },
+          {
+            "format": "regex",
+            "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+          }
+        ]
+      },
+      "bicepVersion": {
+        "type": "string",
+        "description": "The Bicep version to use.",
+        "oneOf": [
+          {
+            "const": "latest"
+          },
+          {
+            "format": "regex",
+            "pattern": "^v(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+          }
+        ]
       }
     },
     "deployment": {
@@ -543,33 +564,22 @@
         "type": "object",
         "description": "Defines the behavior of resources that are not managed immediately after the stack is updated.",
         "additionalProperties": false,
-        "required": [
-          "resources"
-        ],
+        "required": ["resources"],
         "properties": {
           "resources": {
             "type": "string",
             "description": "Specifies the action that should be taken on the resource when the deployment stack is deleted. Delete will attempt to delete the resource from Azure. Detach will leave the resource in it's current state.",
-            "enum": [
-              "delete",
-              "detach"
-            ]
+            "enum": ["delete", "detach"]
           },
           "resourceGroups": {
             "type": "string",
             "description": "Specifies the action that should be taken on the resource when the deployment stack is deleted. Delete will attempt to delete the resource from Azure. Detach will leave the resource in it's current state.",
-            "enum": [
-              "delete",
-              "detach"
-            ]
+            "enum": ["delete", "detach"]
           },
           "managementGroups": {
             "type": "string",
             "description": "Specifies the action that should be taken on the resource when the deployment stack is deleted. Delete will attempt to delete the resource from Azure. Detach will leave the resource in it's current state.",
-            "enum": [
-              "delete",
-              "detach"
-            ]
+            "enum": ["delete", "detach"]
           }
         }
       },
